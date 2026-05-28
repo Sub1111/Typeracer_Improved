@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Taperacer Improved",
+  "version": "1.0.0",
+  "description": "Extension for better taperacer experience",
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+        "matches": ["https://play.typeracer.com/*"],
+        "js": ["Content.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["sounds/*.mp3"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
