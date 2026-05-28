@@ -4,6 +4,13 @@ function timerFunction(timerElement){
     else if(txt === ':00') playSound('go');
 }
 
+function inputFunction(inputElement, m){
+    console.log(m);
+    if (inputElement.classList.contains("txtInput-error")){
+        playSound("missed-punch");
+    }
+}
+
 function playSound(soundName) {
     const audio = new Audio(chrome.runtime.getURL(`sounds/${soundName}.mp3`));
     audio.play();
@@ -11,13 +18,14 @@ function playSound(soundName) {
 
 function checkTimer(mutations) {
     const timerElement = document.querySelector("body > div.countdownPopup.horizontalCountdownPopup > div > table > tbody > tr > td > table > tbody > tr > td:nth-child(3) > div > span");
+    const inputElement = document.querySelector("#dUI > table > tbody > tr:nth-child(2) > td:nth-child(2) > div > div.mainViewport > div > table > tbody > tr:nth-child(2) > td:nth-child(3) > table > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(2) > td > input")
 
-    if (!timerElement) return;
     
     mutations.forEach(m => {
-        if (timerElement === m.target || timerElement.contains(m.target))
+        if (timerElement && (timerElement === m.target || timerElement.contains(m.target)))
             timerFunction(timerElement);
-        
+        if (inputElement && (inputElement === m.target || inputElement.contains(m.target)))
+            inputFunction(inputElement, m);
     });
 }
 
@@ -27,5 +35,5 @@ observer.observe(document.body, {
     childList: true,
     subtree: true
 })
-// input pass document.querySelector("#gwt-uid-60 > table > tbody > tr:nth-child(2) > td > table > tbody > tr:nth-child(2) > td > input")
-// txtInput-error
+// input pass 
+// 
