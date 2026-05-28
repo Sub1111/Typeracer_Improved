@@ -1,19 +1,23 @@
+function timerFunction(timerElement){
+    const txt = timerElement.textContent;
+    if (txt === ':03' || txt === ':02' || txt === ':01') playSound('ready');
+    else if(txt === ':00') playSound('go');
+}
+
 function playSound(soundName) {
     const audio = new Audio(chrome.runtime.getURL(`sounds/${soundName}.mp3`));
     audio.play();
 }
 
 function checkTimer(mutations) {
-    const el = document.querySelector("body > div.countdownPopup.horizontalCountdownPopup > div > table > tbody > tr > td > table > tbody > tr > td:nth-child(3) > div > span");
+    const timerElement = document.querySelector("body > div.countdownPopup.horizontalCountdownPopup > div > table > tbody > tr > td > table > tbody > tr > td:nth-child(3) > div > span");
 
-    if (!el) return;
+    if (!timerElement) return;
     
     mutations.forEach(m => {
-        if (!(el === m.target || el.contains(m.target))) return;
+        if (timerElement === m.target || timerElement.contains(m.target))
+            timerFunction(timerElement);
         
-        const txt = el.textContent;
-        if (txt === ':03' || txt === ':02' || txt === ':01') playSound('ready');
-        else if(txt === ':00') playSound('go');
     });
 }
 
