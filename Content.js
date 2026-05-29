@@ -5,7 +5,6 @@ function timerFunction(timerElement){
 }
 
 function inputFunction(inputElement, m){
-    console.log(m);
     if (inputElement.classList.contains("txtInput-error")){
         playSound("missed-punch");
     }
@@ -33,7 +32,8 @@ function checkTimer(mutations) {
 const observer = new MutationObserver(checkTimer);
 observer.observe(document.body, {
     childList: true,
-    subtree: true
+    subtree: true,
+    attributes: true
 })
 // input pass 
 // 
